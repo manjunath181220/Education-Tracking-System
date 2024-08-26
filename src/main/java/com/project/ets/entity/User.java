@@ -3,6 +3,9 @@ package com.project.ets.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.project.ets.config.GenerateSequenceId;
+import com.project.ets.roles.UserRole;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +21,7 @@ import lombok.Setter;
 public class User {
 	@Id
 	@Column(name = "userId")
+	@GenerateSequenceId
 	private int userId;
 	
 	@Column(name = "user_name")
@@ -30,7 +34,7 @@ public class User {
 	private String password;
 	
 	@Column(name = "role")
-	private String role;
+	private UserRole role;
 	
 	@Column(name = "createdDate")
 	private LocalDateTime createdDate;
