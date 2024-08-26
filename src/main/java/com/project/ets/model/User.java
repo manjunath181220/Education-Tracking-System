@@ -2,10 +2,14 @@ package com.project.ets.model;
 
 import java.time.LocalDateTime;
 
+import com.project.ets.config.GenerateSquenceId;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,9 +17,12 @@ import lombok.Setter;
 @Table(name="users")
 @Getter
 @Setter
+@Data
+@AllArgsConstructor
 public class User {
 
 	@Id
+	@GenerateSquenceId
 	@Column(name="user_id")
 	private int userId;
 	
