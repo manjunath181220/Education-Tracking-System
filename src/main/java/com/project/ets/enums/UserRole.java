@@ -1,4 +1,4 @@
-package com.project.ets.roles;
+package com.project.ets.enums;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package com.project.ets.requstdto;
 
 import org.springframework.stereotype.Component;
 
-import com.project.ets.roles.UserRole;
+import com.project.ets.enums.UserRole;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
