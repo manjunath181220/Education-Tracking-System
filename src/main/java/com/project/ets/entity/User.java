@@ -8,6 +8,8 @@ import com.project.ets.enums.UserRole;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
@@ -37,6 +39,7 @@ public class User {
 	private String password;
 	
 	@Column(name = "role")
+	@Enumerated(EnumType.STRING)
 	private UserRole role;
 	
 	@Column(name = "createdDate")
