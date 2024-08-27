@@ -3,6 +3,7 @@ package com.project.ets.model;
 import java.time.LocalDateTime;
 
 import com.project.ets.config.GenerateSquenceId;
+import com.project.ets.privilege.UserRole;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,7 +35,7 @@ public class User {
 	private String password;
 	
 	@Column(name="role")
-	private String role;
+	private UserRole role;
 	
 	@Column(name="email")
 	private String email;
