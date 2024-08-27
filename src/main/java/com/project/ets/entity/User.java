@@ -25,7 +25,7 @@ public class User {
 	@Id
 	@Column(name = "userId")
 	@GenerateSequenceId
-	private int userId;
+	private String userId;
 	
 	@Column(name = "user_name")
 	private String username;
