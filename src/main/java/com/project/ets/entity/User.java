@@ -3,6 +3,9 @@ package com.project.ets.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import com.project.ets.config.GenerateSequenceId;
 import com.project.ets.enums.UserRole;
 
@@ -42,9 +45,11 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
 	
+	@CreatedDate
 	@Column(name = "createdDate")
 	private LocalDateTime createdDate;
 	
+	@LastModifiedDate
 	@Column(name = "modifiedDate")
 	private LocalDateTime modifiedDate;
 
