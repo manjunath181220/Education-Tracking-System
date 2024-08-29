@@ -2,10 +2,13 @@ package com.project.ets.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.project.ets.enums.Stack;
 import com.project.ets.enums.UserRole;
 import com.project.ets.requstdto.StudentRequest;
 import com.project.ets.responsedto.StudentResponse;
@@ -33,6 +36,11 @@ public class StudentController {
 	public ResponseEntity<ResponseStructure<StudentResponse>> updateStudent(@RequestBody StudentRequest studentRequest,@PathVariable String userId){
 		StudentResponse studentResponse=userService.updateStudent(studentRequest,userId);
 		return responseBuilder.success(HttpStatus.OK, "Student Updated", studentResponse);
+	}
+	@PatchMapping("/users/students/{userId}")
+	public ResponseEntity<ResponseStructure<StudentResponse>> updateStudentStack(@RequestParam Stack stack,@PathVariable String userId){
+		StudentResponse response=userService.updateStudent(stack, userId);
+		return responseBuilder.success(HttpStatus.OK, "Student stack is Updated", response);
 	}
 
 }

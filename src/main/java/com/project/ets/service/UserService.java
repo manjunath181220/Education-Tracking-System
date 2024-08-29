@@ -9,6 +9,7 @@ import com.project.ets.entity.HR;
 import com.project.ets.entity.Student;
 import com.project.ets.entity.Trainer;
 import com.project.ets.entity.User;
+import com.project.ets.enums.Stack;
 import com.project.ets.enums.UserRole;
 import com.project.ets.mapper.UserMapper;
 import com.project.ets.repository.UserRepository;
@@ -81,6 +82,22 @@ public class UserService {
 		User user=null;
 		if(optional.isPresent()) {
 			user=mapper.mapToStudentEntity(studentRequest, (Student)optional.get());
+			user=userRepository.save(user);
+			return mapper.mapToStudentResponse((Student)user);
+		}
+		else {
+			return null;
+		}
+	}
+
+	public StudentResponse updateStudent(Stack stack, String userId) {
+		Optional<User> optional=userRepository.findById(userId);
+		User user=null;
+		if(optional.isPresent()) {
+			Student student =(Student)optional.get();
+			student.setStack(stack);
+			user=student;
+			
 			user=userRepository.save(user);
 			return mapper.mapToStudentResponse((Student)user);
 		}
