@@ -1,11 +1,13 @@
 package com.project.ets.entity;
-
+	
 
 import com.project.ets.config.GenerateSequenceId;
 import com.project.ets.enums.Subject;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -21,7 +23,7 @@ public class Rating {
 	@GenerateSequenceId
 	@Column(name = "ratingId")
 	private String ratingId;
-	
+	@Enumerated(EnumType.STRING)
 	@Column(name = "subject")
 	private Subject subject;
 	
@@ -31,7 +33,7 @@ public class Rating {
 	@Column(name = "feedback")
 	private String feedback;
 	
-	@Column(name = "student")
+	
 	@ManyToOne
 	private Student student;
 	

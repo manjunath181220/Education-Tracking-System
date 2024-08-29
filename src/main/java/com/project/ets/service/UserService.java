@@ -14,18 +14,25 @@ import com.project.ets.entity.User;
 import com.project.ets.enums.Stack;
 import com.project.ets.enums.Subject;
 import com.project.ets.enums.UserRole;
+import com.project.ets.exception.UserNotFoundByIdException;
 import com.project.ets.mapper.UserMapper;
+import com.project.ets.repository.RatingRepository;
 import com.project.ets.repository.UserRepository;
 import com.project.ets.requstdto.StudentRequest;
 import com.project.ets.requstdto.TrainerRequest;
+import com.project.ets.requstdto.UserRequest;
 import com.project.ets.responsedto.StudentResponse;
 import com.project.ets.responsedto.UserResponse;
 import com.project.ets.security.RegistrationRequest;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class UserService {
 	private UserRepository userRepository;
 	private UserMapper mapper;
+	private RatingRepository ratingRepository;
 
 	
 //	public UserResponse saveAdmin(RegistrationRequest registrationRequest) {
@@ -64,53 +71,35 @@ public class UserService {
 	return mapper.mapToUserResponse(user);
 	}
 	
-	public UserResponse updateTrainer(TrainerRequest trainerRequest,String userId) {
-		Optional<User> optional=userRepository.findById(userId);
-	User user=null;
-		if(optional.isPresent()) {
-			user=mapper.mapToTrainerEntity(trainerRequest, (Trainer)optional.get());
-		user=userRepository.save(user);
-		return mapper.mapToTrainerResponse((Trainer) user);
-		}
-		else {
-			return null;
+	public UserResponse updateTrainer(TrainerRequest trainerRequest,String userId) {		
+		return userRepository.findById(userId).map((user)->{
+			user=mapper.mapToTrainerEntity(trainerRequest,(Trainer) user);
+			user=userRepository.save(user);
+			return mapper.mapToUserResponse(user);
+		}).orElseThrow(()->new UserNotFoundByIdException("failed to update the trainer"));
 	}
-
-
-
-	}
-
+	
 	public StudentResponse updateStudent(StudentRequest studentRequest, String userId) {
-		Optional<User> optional=userRepository.findById(userId);
-		User user=null;
-		if(optional.isPresent()) {
-			user=mapper.mapToStudentEntity(studentRequest, (Student)optional.get());
+		return userRepository.findById(userId).map((user)->{
+			user=mapper.mapToStudentEntity(studentRequest,(Student) user);
 			user=userRepository.save(user);
 			return mapper.mapToStudentResponse((Student)user);
-		}
-		else {
-			return null;
-		}
+		}).orElseThrow(()->new UserNotFoundByIdException("failed to update the student"));
 	}
 
 	public StudentResponse updateStudent(Stack stack, String userId) {
-		Optional<User> optional=userRepository.findById(userId);
-		User user=null;
-		if(optional.isPresent()) {
-			Student student =(Student)optional.get();
-			List<Subject> subjects = stack.getSubjects();
-			for(Subject subject:subjects) {
-				new Rating().setSubject(subject);
-			}
+		
+			return	userRepository.findById(userId).map(user->{
+			Student student=(Student)user;
+			stack.getSubjects().forEach(subject->{
+				Rating rating = new Rating();
+				rating.setSubject(subject);
+				ratingRepository.save(rating);
+			});
 			student.setStack(stack);
-			user=student;
-			
-			user=userRepository.save(user);
-			return mapper.mapToStudentResponse((Student)user);
-		}
-		else {
-			return null;
-		}
+			user=userRepository.save(student);
+			return mapper.mapToStudentResponse(student);
+		}).orElseThrow(()->new UserNotFoundByIdException("faied to update stack to the student"));
 	}
 
 

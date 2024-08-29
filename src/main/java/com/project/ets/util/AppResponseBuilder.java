@@ -16,4 +16,8 @@ public class AppResponseBuilder {
 		return ResponseEntity.status(status).body(ErrorStructure.error(status.value(), message, errors));
 	}
 
+	public ResponseEntity<ErrorStructure<String>> error(HttpStatus notFound, String message, String string) {
+		return ResponseEntity.status(notFound).body(ErrorStructure.error(notFound.value(), message, string));
+	}
+
 }

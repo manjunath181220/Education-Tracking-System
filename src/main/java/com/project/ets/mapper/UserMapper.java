@@ -7,6 +7,7 @@ import com.project.ets.entity.Trainer;
 import com.project.ets.entity.User;
 import com.project.ets.requstdto.StudentRequest;
 import com.project.ets.requstdto.TrainerRequest;
+import com.project.ets.requstdto.UserRequest;
 import com.project.ets.responsedto.StudentResponse;
 import com.project.ets.responsedto.TrainerResponse;
 import com.project.ets.responsedto.UserResponse;
@@ -52,7 +53,7 @@ public User mapToUserEntity(RegistrationRequest registrationRequest, User user) 
 		student.setStream(studentRequest.getStream());
 		student.setYearOfPassout(studentRequest.getYearOfPassout());
 		student.setDegreePercentage(studentRequest.getDegreePercentage());
-		student.setTwelthPercentage(studentRequest.getTwelvethPercentage());
+		student.setTwelthPercentage(studentRequest.getTwelthPercentage());
 		student.setTenthPercentage(studentRequest.getTenthPercentage());
 		return student;
 	}

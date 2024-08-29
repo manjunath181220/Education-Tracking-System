@@ -34,7 +34,7 @@ public class User {
 	@GenerateSequenceId
 	private String userId;
 	
-	@Column(name = "user_name")
+	@Column(name = "username")
 	private String username;
 	
 	@Column(name = "email")

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.project.ets.enums.UserRole;
 import com.project.ets.requstdto.TrainerRequest;
@@ -15,7 +16,7 @@ import com.project.ets.service.UserService;
 import com.project.ets.util.AppResponseBuilder;
 import com.project.ets.util.ResponseStructure;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
@@ -24,7 +25,7 @@ public class TrainerController {
 	private UserService userService;
 	private AppResponseBuilder responseBuilder;
 	@PostMapping("/users/trainers/{role}")
-	public ResponseEntity<ResponseStructure<UserResponse>> saveTrainer(@RequestBody RegistrationRequest registrationRequest,@PathVariable UserRole role){
+	public ResponseEntity<ResponseStructure<UserResponse>> saveTrainer(@RequestBody @Valid RegistrationRequest registrationRequest,@PathVariable UserRole role){
 		UserResponse response=userService.saveUser(registrationRequest,role);
 		return responseBuilder.success(HttpStatus.CREATED, "Trainer created successfully", response);
 	}

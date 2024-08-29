@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.project.ets.util.AppResponseBuilder;
 import com.project.ets.util.CustomFieldError;
 
+@RestControllerAdvice
 public class FieldErrorExceptionHandler extends ResponseEntityExceptionHandler{
 
 private AppResponseBuilder responseBuilder;

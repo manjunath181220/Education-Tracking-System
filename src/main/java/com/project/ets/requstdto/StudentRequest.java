@@ -14,7 +14,7 @@ public class StudentRequest extends UserRequest{
 	private Year yearOfPassout;
 	private int degreePercentage;
 	private int tenthPercentage;
-	private int twelvethPercentage;
+	private int twelthPercentage;
 	
 
 }

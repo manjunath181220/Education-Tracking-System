@@ -10,6 +10,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -37,5 +38,7 @@ public class Student extends User{
 	private Stack stack;
 	@OneToMany(mappedBy = "student",cascade = CascadeType.REMOVE)
 	private List<Rating> ratings;
+	@ManyToMany(mappedBy = "students")
+	private List<Batch> batches;
 
 }
