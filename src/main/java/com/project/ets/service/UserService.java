@@ -1,15 +1,18 @@
 package com.project.ets.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.project.ets.entity.Admin;
 import com.project.ets.entity.HR;
+import com.project.ets.entity.Rating;
 import com.project.ets.entity.Student;
 import com.project.ets.entity.Trainer;
 import com.project.ets.entity.User;
 import com.project.ets.enums.Stack;
+import com.project.ets.enums.Subject;
 import com.project.ets.enums.UserRole;
 import com.project.ets.mapper.UserMapper;
 import com.project.ets.repository.UserRepository;
@@ -95,6 +98,10 @@ public class UserService {
 		User user=null;
 		if(optional.isPresent()) {
 			Student student =(Student)optional.get();
+			List<Subject> subjects = stack.getSubjects();
+			for(Subject subject:subjects) {
+				new Rating().setSubject(subject);
+			}
 			student.setStack(stack);
 			user=student;
 			
