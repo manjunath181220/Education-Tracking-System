@@ -1,5 +1,6 @@
 package com.project.ets.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,12 +16,14 @@ import com.project.ets.enums.Stack;
 import com.project.ets.enums.Subject;
 import com.project.ets.enums.UserRole;
 import com.project.ets.exception.UserNotFoundByIdException;
+import com.project.ets.mapper.RatingMapper;
 import com.project.ets.mapper.UserMapper;
 import com.project.ets.repository.RatingRepository;
 import com.project.ets.repository.UserRepository;
 import com.project.ets.requstdto.StudentRequest;
 import com.project.ets.requstdto.TrainerRequest;
 import com.project.ets.requstdto.UserRequest;
+import com.project.ets.responsedto.RatingResponse;
 import com.project.ets.responsedto.StudentResponse;
 import com.project.ets.responsedto.UserResponse;
 import com.project.ets.security.RegistrationRequest;
@@ -33,6 +36,7 @@ public class UserService {
 	private UserRepository userRepository;
 	private UserMapper mapper;
 	private RatingRepository ratingRepository;
+	private RatingMapper ratingMapper;
 
 	
 //	public UserResponse saveAdmin(RegistrationRequest registrationRequest) {
@@ -91,15 +95,29 @@ public class UserService {
 		
 			return	userRepository.findById(userId).map(user->{
 			Student student=(Student)user;
+		
 			stack.getSubjects().forEach(subject->{
 				Rating rating = new Rating();
 				rating.setSubject(subject);
-				ratingRepository.save(rating);
+				rating.setStudent(student);
+				rating=ratingRepository.save(rating);
 			});
 			student.setStack(stack);
 			user=userRepository.save(student);
 			return mapper.mapToStudentResponse(student);
 		}).orElseThrow(()->new UserNotFoundByIdException("faied to update stack to the student"));
+	}
+
+	public List<RatingResponse> viewRating(String userId) {
+		return userRepository.findById(userId).map(user->{
+			Student student=(Student)user;
+			List<RatingResponse> responses=new ArrayList<RatingResponse>();
+			student.getRatings().forEach(rating->{
+				responses.add(ratingMapper.mapToRatingResponseEntity(rating));
+			});
+			return responses;
+			
+		}).orElseThrow(()->new UserNotFoundByIdException("student is not found by the given id"));
 	}
 
 

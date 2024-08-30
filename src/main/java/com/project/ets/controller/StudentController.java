@@ -1,7 +1,10 @@
 package com.project.ets.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.ets.enums.Stack;
 import com.project.ets.enums.UserRole;
 import com.project.ets.requstdto.StudentRequest;
+import com.project.ets.responsedto.RatingResponse;
 import com.project.ets.responsedto.StudentResponse;
 import com.project.ets.responsedto.UserResponse;
 import com.project.ets.security.RegistrationRequest;
@@ -44,6 +48,12 @@ public class StudentController {
 	public ResponseEntity<ResponseStructure<StudentResponse>> updateStudentStack(@RequestParam Stack stack,@PathVariable String userId){
 		StudentResponse response=userService.updateStudent(stack, userId);
 		return responseBuilder.success(HttpStatus.OK, "Student stack is Updated", response);
+	}
+	
+	@GetMapping("users/students/ratings/{userId}")
+	public ResponseEntity<ResponseStructure<List<RatingResponse>>> viewRating(@PathVariable String userId){
+		List<RatingResponse> responses=userService.viewRating(userId);
+		return responseBuilder.success(HttpStatus.FOUND, "found the ratings of the student", responses);
 	}
 
 }
