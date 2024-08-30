@@ -35,6 +35,25 @@ public class BatchService {
 			
 		}).orElseThrow(()->new BatchNotFoundByIdException("failed to update the batch"));
 	}
+
+	public BatchResponse cancelBatch(String batchId) {
+		return batchRepository.findById(batchId).map(batch->{
+			batch.setBatchStatus(BatchStatus.CANCELLED);
+			batch=batchRepository.save(batch);
+			return mapper.mapToBatchResponse(batch);
+			
+		}).orElseThrow(()->new BatchNotFoundByIdException("failed to change the batch status"));
+	}
+	public BatchResponse closeBatch(String batchId) {
+		return batchRepository.findById(batchId).map(batch->{
+			batch.setBatchStatus(BatchStatus.CLOSED);
+			batch=batchRepository.save(batch);
+			return mapper.mapToBatchResponse(batch);
+			
+		}).orElseThrow(()->new BatchNotFoundByIdException("failed to change the batch status"));
+	}
+	
+	
 	
 	
 

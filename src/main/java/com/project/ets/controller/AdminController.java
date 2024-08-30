@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -37,15 +38,27 @@ public class AdminController {
 	}
 	
 	@PostMapping("/admins/batches")
-	public ResponseEntity<BatchResponse> saveBatch(@RequestBody BatchRequest request){
+	public ResponseEntity<ResponseStructure<BatchResponse>> saveBatch(@RequestBody BatchRequest request){
 		BatchResponse response = batchService.saveBatch(request);
-		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+		return responseBuilder.success(HttpStatus.CREATED, "batch created successfully", response);
 		
 	}
 	@PutMapping("/admins/batches/{batchId}")
-	public ResponseEntity<BatchResponse> updateBatch(@RequestBody BatchRequest request,@PathVariable String batchId){
+	public ResponseEntity<ResponseStructure<BatchResponse>> updateBatch(@RequestBody BatchRequest request,@PathVariable String batchId){
 		BatchResponse response=batchService.updateBatch(request,batchId);
-		return ResponseEntity.status(HttpStatus.OK).body(response);
+		return responseBuilder.success(HttpStatus.OK, "batch updated successfully", response);
+	}
+	
+	@PatchMapping("/admins/batches/{batchId}/cancel")
+	public ResponseEntity<ResponseStructure<BatchResponse>> cancelBatch(@PathVariable String batchId){
+		BatchResponse response=batchService.cancelBatch(batchId);
+		return responseBuilder.success(HttpStatus.OK, "batch updated successfully", response);
+	
+	}
+	@PatchMapping("/admins/batches/{batchId}/close")
+	public ResponseEntity<ResponseStructure<BatchResponse>> closeBatch(@PathVariable String batchId){
+		BatchResponse response=batchService.cancelBatch(batchId);
+		return responseBuilder.success(HttpStatus.OK, "batch updated successfully", response);
 	}
 
 }
