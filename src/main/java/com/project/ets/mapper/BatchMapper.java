@@ -10,8 +10,10 @@ public class BatchMapper {
 	
 	public Batch mapToBatchEntity(BatchRequest request,Batch batch) {
 		batch.setTitle(request.getTitle());
-		batch.setSubjects(batch.getSubjects());
-		batch.setStudents(request.getStudents());
+		batch.setSubjects(request.getSubjects());
+		batch.setBeginsAt(request.getBeginsAt());
+		batch.setEndsAt(request.getEndsAt());
+		batch.setStartingDate(request.getStartingDate());
 		return batch;
 	}
 	
@@ -20,11 +22,12 @@ public class BatchMapper {
 		response.setBatchId(batch.getBatchId());
 		response.setTitle(batch.getTitle());
 		response.setSubjects(batch.getSubjects());
-		response.setCreatedDate(batch.getCreatedDate());
-		response.setClosedDate(batch.getClosedDate());
-		response.setStudents(batch.getStudents());
+		response.setStartingDate(batch.getStartingDate());
+		response.setBeginsAt(batch.getBeginsAt());
+		response.setEndsAt(batch.getEndsAt());
 		
 		return response;
+		
 	}
 
 }

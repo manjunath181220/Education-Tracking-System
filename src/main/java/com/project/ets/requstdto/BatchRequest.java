@@ -2,6 +2,7 @@ package com.project.ets.requstdto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import com.project.ets.entity.Student;
@@ -15,9 +16,11 @@ import lombok.Setter;
 public class BatchRequest {
 	
 	private String title;
+	private LocalTime beginsAt;
+	private LocalTime endsAt;
+	private LocalDate startingDate;
 	private List<Subject> subjects;
-	private LocalDate closedDate;
-	private List<Student> students;
+	
 	
 
 }

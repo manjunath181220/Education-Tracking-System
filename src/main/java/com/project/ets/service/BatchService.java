@@ -1,8 +1,12 @@
 package com.project.ets.service;
 
+import java.time.LocalDate;
+
 import org.springframework.stereotype.Service;
 
 import com.project.ets.entity.Batch;
+import com.project.ets.enums.BatchStatus;
+import com.project.ets.exception.BatchNotFoundByIdException;
 import com.project.ets.mapper.BatchMapper;
 import com.project.ets.repository.BatchRepository;
 import com.project.ets.requstdto.BatchRequest;
@@ -17,8 +21,19 @@ public class BatchService {
 	private BatchMapper mapper;
 	
 	public BatchResponse saveBatch(BatchRequest request) {
-		Batch batch = batchRepository.save(mapper.mapToBatchEntity(request, new Batch()));
+		Batch batch = mapper.mapToBatchEntity(request, new Batch());
+		batch.setBatchStatus(BatchStatus.CREATED);;
+		batch=batchRepository.save(batch);
 		return mapper.mapToBatchResponse(batch);
+	}
+
+	public BatchResponse updateBatch(BatchRequest request, String batchId) {
+		return batchRepository.findById(batchId).map(batch->{
+			batch=mapper.mapToBatchEntity(request, batch);
+			batch=batchRepository.save(batch);
+			return mapper.mapToBatchResponse(batch);
+			
+		}).orElseThrow(()->new BatchNotFoundByIdException("failed to update the batch"));
 	}
 	
 	
