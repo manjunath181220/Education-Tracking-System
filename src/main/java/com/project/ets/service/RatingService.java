@@ -2,7 +2,6 @@ package com.project.ets.service;
 
 import org.springframework.stereotype.Service;
 
-import com.project.ets.enums.Subject;
 import com.project.ets.exception.RatingNotFoundByIdException;
 import com.project.ets.mapper.RatingMapper;
 import com.project.ets.repository.RatingRepository;
@@ -25,8 +24,7 @@ public class RatingService {
 			rating=ratingMapper.mapToRatingEntity(request, rating);
 			rating=ratingRepository.save(rating);
 			return ratingMapper.mapToRatingResponseEntity(rating);
-			
-		}).orElseThrow(()->new RatingNotFoundByIdException("failed to update student rating"));
+			}).orElseThrow(()->new RatingNotFoundByIdException("failed to update student rating"));
 		
 	}
 

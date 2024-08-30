@@ -2,7 +2,6 @@ package com.project.ets.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -13,7 +12,6 @@ import com.project.ets.entity.Student;
 import com.project.ets.entity.Trainer;
 import com.project.ets.entity.User;
 import com.project.ets.enums.Stack;
-import com.project.ets.enums.Subject;
 import com.project.ets.enums.UserRole;
 import com.project.ets.exception.UserNotFoundByIdException;
 import com.project.ets.mapper.RatingMapper;
@@ -22,7 +20,6 @@ import com.project.ets.repository.RatingRepository;
 import com.project.ets.repository.UserRepository;
 import com.project.ets.requstdto.StudentRequest;
 import com.project.ets.requstdto.TrainerRequest;
-import com.project.ets.requstdto.UserRequest;
 import com.project.ets.responsedto.RatingResponse;
 import com.project.ets.responsedto.StudentResponse;
 import com.project.ets.responsedto.UserResponse;
@@ -38,24 +35,6 @@ public class UserService {
 	private RatingRepository ratingRepository;
 	private RatingMapper ratingMapper;
 
-	
-//	public UserResponse saveAdmin(RegistrationRequest registrationRequest) {
-//		User user = mapper.mapToUserEntity(registrationRequest, new Admin());
-//		user =userRepository.save(user);
-//		return mapper.mapToUserResponse(user);
-//	}
-//	public UserResponse saveHr(RegistrationRequest registrationRequest ) {
-//		User user=mapper.mapToUserEntity(registrationRequest, new HR());
-//		return mapper.mapToUserResponse(user);
-//	}
-//	public UserResponse saveTrainer(RegistrationRequest registrationRequest) {
-//		User user=mapper.mapToUserEntity(registrationRequest, new Trainer());
-//		return mapper.mapToUserResponse(user);
-//	}
-//	public UserResponse saveStudent(RegistrationRequest registrationRequest) {
-//		User user=mapper.mapToUserEntity(registrationRequest, new Student());
-//		return mapper.mapToUserResponse(user);
-//	}
 	public UserResponse saveUser(RegistrationRequest registrationRequest,UserRole role) {
 	User user = null;
 	switch (role) {
@@ -95,7 +74,6 @@ public class UserService {
 		
 			return	userRepository.findById(userId).map(user->{
 			Student student=(Student)user;
-		
 			stack.getSubjects().forEach(subject->{
 				Rating rating = new Rating();
 				rating.setSubject(subject);

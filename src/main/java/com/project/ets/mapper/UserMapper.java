@@ -7,7 +7,6 @@ import com.project.ets.entity.Trainer;
 import com.project.ets.entity.User;
 import com.project.ets.requstdto.StudentRequest;
 import com.project.ets.requstdto.TrainerRequest;
-import com.project.ets.requstdto.UserRequest;
 import com.project.ets.responsedto.StudentResponse;
 import com.project.ets.responsedto.TrainerResponse;
 import com.project.ets.responsedto.UserResponse;
@@ -33,7 +32,9 @@ public User mapToUserEntity(RegistrationRequest registrationRequest, User user) 
 		return userResponse;
 	}
 	public Trainer mapToTrainerEntity(TrainerRequest trainerRequest,Trainer trainer) {
+		if(trainerRequest.getUsername()!=null)
 		trainer.setUsername(trainerRequest.getUsername());
+		if(trainerRequest.getEmail()!=null)
 		trainer.setEmail(trainerRequest.getEmail());
 		trainer.setSubjects(trainerRequest.getSubjects());
 		return trainer;
@@ -47,7 +48,9 @@ public User mapToUserEntity(RegistrationRequest registrationRequest, User user) 
 		return response;
 	}
 	public Student mapToStudentEntity(StudentRequest studentRequest, Student student) {
+		if(studentRequest!=null)
 		student.setUsername(studentRequest.getUsername());
+		if(studentRequest!=null)
 		student.setEmail(studentRequest.getEmail());
 		student.setDegree(studentRequest.getDegree());
 		student.setStream(studentRequest.getStream());

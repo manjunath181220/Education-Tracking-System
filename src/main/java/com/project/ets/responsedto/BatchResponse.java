@@ -1,11 +1,9 @@
 package com.project.ets.responsedto;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
-import com.project.ets.entity.Student;
 import com.project.ets.enums.Subject;
 
 import lombok.Getter;
