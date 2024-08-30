@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.project.ets.enums.Subject;
 import com.project.ets.enums.UserRole;
+import com.project.ets.requstdto.RatingRequest;
 import com.project.ets.requstdto.TrainerRequest;
+import com.project.ets.responsedto.RatingResponse;
 import com.project.ets.responsedto.UserResponse;
 import com.project.ets.security.RegistrationRequest;
+import com.project.ets.service.RatingService;
 import com.project.ets.service.UserService;
 import com.project.ets.util.AppResponseBuilder;
 import com.project.ets.util.ResponseStructure;
@@ -24,6 +28,8 @@ public class TrainerController {
 	
 	private UserService userService;
 	private AppResponseBuilder responseBuilder;
+	private RatingService ratingService;
+	
 	@PostMapping("/users/trainers/{role}")
 	public ResponseEntity<ResponseStructure<UserResponse>> saveTrainer(@RequestBody @Valid RegistrationRequest registrationRequest,@PathVariable UserRole role){
 		UserResponse response=userService.saveUser(registrationRequest,role);
@@ -34,6 +40,11 @@ public class TrainerController {
 	public ResponseEntity<ResponseStructure<UserResponse>> updateTrainer(@RequestBody TrainerRequest trainerRequest,@PathVariable String userId){
 		UserResponse response=userService.updateTrainer(trainerRequest,userId);
 		return responseBuilder.success(HttpStatus.OK, "Trainer updated", response);
+	}
+	@PutMapping("/users/trainers/rating/{ratingId}")
+	public ResponseEntity<ResponseStructure<RatingResponse>> updateStudentRating(@RequestBody RatingRequest request,@PathVariable String ratingId){
+		RatingResponse ratingResponse = ratingService.updateStudentRating(request,ratingId);
+		return responseBuilder.success(HttpStatus.OK, "rating updated successfully", ratingResponse);
 	}
 
 }

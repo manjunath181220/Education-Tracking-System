@@ -1,5 +1,6 @@
 package com.project.ets.requstdto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,8 +16,7 @@ public class BatchRequest {
 	
 	private String title;
 	private List<Subject> subjects;
-	private LocalDateTime createdDate;
-	private LocalDateTime closedDate;
+	private LocalDate closedDate;
 	private List<Student> students;
 	
 

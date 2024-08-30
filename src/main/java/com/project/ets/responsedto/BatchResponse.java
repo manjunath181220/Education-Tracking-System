@@ -1,5 +1,6 @@
 package com.project.ets.responsedto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,8 +16,8 @@ public class BatchResponse {
 	private String batchId;
 	private String title;
 	private List<Subject> subjects;
-	private LocalDateTime createdDate;
-	private LocalDateTime closedDate;
+	private LocalDate createdDate;
+	private LocalDate closedDate;
 	private List<Student> students;
 
 }

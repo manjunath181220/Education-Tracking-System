@@ -10,7 +10,6 @@ import com.project.ets.responsedto.RatingResponse;
 public class RatingMapper {
 	
 	public Rating mapToRatingEntity(RatingRequest ratingRequest,Rating rating) {
-		rating.setSubject(ratingRequest.getSubject());
 		rating.setRating(ratingRequest.getRating());
 		rating.setFeedback(ratingRequest.getFeedback());
 		return rating;
