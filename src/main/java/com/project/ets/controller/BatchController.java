@@ -23,25 +23,25 @@ public class BatchController {
 	private BatchService batchService;
 	private AppResponseBuilder responseBuilder;
 	
-	@PostMapping("/admins/batches")
+	@PostMapping("/batches")
 	public ResponseEntity<ResponseStructure<BatchResponse>> saveBatch(@RequestBody BatchRequest request){
 		BatchResponse response = batchService.saveBatch(request);
 		return responseBuilder.success(HttpStatus.CREATED, "batch created successfully", response);
 		
 	}
-	@PutMapping("/admins/batches/{batchId}")
+	@PutMapping("/batches/{batchId}")
 	public ResponseEntity<ResponseStructure<BatchResponse>> updateBatch(@RequestBody BatchRequest request,@PathVariable String batchId){
 		BatchResponse response=batchService.updateBatch(request,batchId);
 		return responseBuilder.success(HttpStatus.OK, "batch updated successfully", response);
 	}
 	
-	@PatchMapping("/admins/batches/{batchId}/cancel")
+	@PatchMapping("/batches/{batchId}/cancel")
 	public ResponseEntity<ResponseStructure<BatchResponse>> cancelBatch(@PathVariable String batchId){
 		BatchResponse response=batchService.cancelBatch(batchId);
 		return responseBuilder.success(HttpStatus.OK, "batch updated successfully", response);
 	
 	}
-	@PatchMapping("/admins/batches/{batchId}/close")
+	@PatchMapping("/batches/{batchId}/close")
 	public ResponseEntity<ResponseStructure<BatchResponse>> closeBatch(@PathVariable String batchId){
 		BatchResponse response=batchService.cancelBatch(batchId);
 		return responseBuilder.success(HttpStatus.OK, "batch updated successfully", response);
